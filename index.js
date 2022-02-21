@@ -52,7 +52,7 @@ const addNewCard = () => {
     image: document.getElementById('imageURL').value,
     type: document.getElementById('taskType').value,
     description: document.getElementById('taskDescription').value
-  }
+  };
 globalTaskData.push(taskData);
 saveToLocalStorage();
 
