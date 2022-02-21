@@ -64,4 +64,21 @@ document.getElementById("taskTitle").value="";
 document.getElementById("imageURL").value="";
 document.getElementById("taskType").value="";
 document.getElementById("taskDescription").value="";
+
+return;
+}
+
+const loadExistingCards = () => {
+  let getData = localStorage.getItem("taskyProject");
+
+  if(!getData) return;
+//parse -> string into json -> opposite of stringify
+  let taskCards = JSON.parse(getData);
+
+  globalTaskData = taskCards.card;
+  globalTaskData.map((taskData)=> {
+    let newCard = generateHTML(taskData);
+    insertToDOM(newCard);
+  });
+  return;
 }
