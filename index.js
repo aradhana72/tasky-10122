@@ -14,11 +14,11 @@ const generateHTML = (taskData) => {
   return ` <div id=${taskData.id} class="col-4">
     <div class="card">
 <div class="card-header d-flex justify-content-end gap-2">
-<button type="button" id=${taskData.id} class="btn btn-outline-success">
- <i class="fa fa-pencil" aria-hidden="true"></i>
+<button type="button" name=${taskData.id} class="btn btn-outline-success">
+ <i class="fa fa-pencil" name=${taskData.id} aria-hidden="true"></i>
 </button>
-<button type="button" id=${taskData.id} class="btn btn-outline-danger">
- <i class="fa fa-trash" aria-hidden="true"></i>
+<button type="button" name=${taskData.id} onclick="deleteCard.apply(this,arguments)" class="btn btn-outline-danger">
+ <i class="fa fa-trash" name=${taskData.id} aria-hidden="true"></i>
 </button>
 </div>
 <div class="card-body">
@@ -82,3 +82,24 @@ const loadExistingCards = () => {
   });
   return;
 }
+//tagName -> tagname
+const deleteCard = (event) => {
+  let targetID = event.target.getAttribute("name");
+  let elementType = event.target.tagName;
+
+  let removeTask = globalTaskData.filter((task)=> task.id!==targetID);
+  globalTaskData = removeTask;
+
+  saveToLocalStorage();
+
+  if(elementType==="BUTTON") {
+    return taskContainer.removeChild(
+      event.target.parentNode.parentNode.parentNode
+    );
+  } else {
+    return taskContainer.removeChild(
+      event.target.parentNode.parentNode.parentNode.parentNode
+    );
+  }
+
+};
